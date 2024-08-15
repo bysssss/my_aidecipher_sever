@@ -17,7 +17,7 @@ Resources:
     Properties:
       FunctionName: !Sub "scp-aislider-worker-func-${MyStage}"
       PackageType: Image
-      ImageUri: !Sub "971291532448.dkr.ecr.ap-northeast-2.amazonaws.com/scp-aislider-app:${MyVersion}-${MyStage}"
+      ImageUri: !Sub ".dkr.ecr.ap-northeast-2.amazonaws.com/scp-aislider-app:${MyVersion}-${MyStage}"
       ImageConfig:
         WorkingDirectory: "/src"
         EntryPoint:
@@ -46,6 +46,6 @@ Resources:
           AWS_PROFILE: "default"
           AWS_CONFIG_FILE: "/src/.aws/config"
       FileSystemConfigs:
-        - Arn: arn:aws:elasticfilesystem:us-east-2:000728983318:access-point/fsap-012468f65da8cd51a
+        - Arn: arn:aws:elasticfilesystem:us-east-2::access-point/fsap
           LocalMountPath: /mnt/slides
-      Role: !Sub "arn:aws:iam::971291532448:role/scp-aislider-worker-role-${MyStage}"
+      Role: !Sub "arn:aws:iam:::role/scp-aislider-worker-role-${MyStage}"

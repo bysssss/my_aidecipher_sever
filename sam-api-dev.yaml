@@ -23,7 +23,7 @@ Resources:
     Properties:
       FunctionName: !Sub "scp-aislider-api-func-${MyStage}"
       PackageType: Image
-      ImageUri: !Sub "971291532448.dkr.ecr.ap-northeast-2.amazonaws.com/scp-aislider-app:${MyVersion}-${MyStage}"
+      ImageUri: !Sub ".dkr.ecr.ap-northeast-2.amazonaws.com/scp-aislider-app:${MyVersion}-${MyStage}"
       ImageConfig:
         WorkingDirectory: "/src"
         EntryPoint:
@@ -59,4 +59,4 @@ Resources:
             Method: ANY
             RestApiId:
               Ref: ALiveGw
-      Role: !Sub "arn:aws:iam::971291532448:role/scp-aislider-api-role-${MyStage}"
+      Role: !Sub "arn:aws:iam:::role/scp-aislider-api-role-${MyStage}"
