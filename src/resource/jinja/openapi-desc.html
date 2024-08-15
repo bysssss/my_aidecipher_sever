@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head></head>
+<body>
+    <hr />
+    <b><u>Header 예시</u></b> <br />
+    <b> - Authorization : bearer 1234567890... <br />
+    <b> - Content-Type : application/json
+    <hr />
+    <hr />
+    <b><u>Response 구조</u></b> <br />
+    <b> - 성공</b> = { "리소스명": dict, ... } <br />
+    <b> - 실패</b> = { "err_cd": str, "err_msg": str }
+    <hr />
+    <hr />
+    <b><u>StatusCode</u></b> <br />
+    <b> - 200</b> = 성공 (OK) <br />
+    <b> - 400</b> = 잘못된 요청오류1 (Bad Request) <br />
+    <b> - 401</b> = 인가오류 (Unauthorized) <br />
+    <b> - 403</b> = 사용자의 권한오류 (Forbidden) <br />
+    <b> - 404</b> = 요청한 리소스가 없음 (Not Found) <br />
+    <b> - 422</b> = 잘못된 요청오류2 (Unprocessable Entity) <br />
+    <b> - 500</b> = 서버 장애 (Internal Server Error) <br />
+    <b> - 503</b> = 서버 과부하 (Service Unavailable) <br />
+    <b> - 555</b> = 서버 DB Exception (커스텀) <br />
+    <b> - 999</b> = 서버 Base Exception (커스텀)
+    <b> - ...</b> <br />
+    <hr />
+</body>
+</html>

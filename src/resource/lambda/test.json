@@ -1,0 +1,10 @@
+{
+    "case": "post_inference",
+    "pk": "1234567890_0",
+    "sk": "1718346995.109",
+    "auth": {
+        "token": "abcdefg",
+        "user_id": "1234567890",
+        "roles": ["ADMIN"]
+    }
+}

@@ -1,0 +1,62 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+
+Globals:
+  Function:
+    Timeout: 30
+
+Parameters:
+  MyVersion:
+    Type: String
+  MyStage:
+    Type: String
+
+Resources:
+  ALiveGw:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: !Ref MyStage
+      Name: !Sub "scp-aislider-gw-${MyStage}"
+
+  ALiveApi:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub "scp-aislider-api-func-${MyStage}"
+      PackageType: Image
+      ImageUri: !Sub "971291532448.dkr.ecr.ap-northeast-2.amazonaws.com/scp-aislider-app:${MyVersion}-${MyStage}"
+      ImageConfig:
+        WorkingDirectory: "/src"
+        EntryPoint:
+          - "/usr/local/bin/python"
+          - "-m"
+          - "awslambdaric"
+        Command:
+          - "app/main_api.lambda_handler"
+      MemorySize: 1024
+      EphemeralStorage:
+        Size: 1024
+      Timeout: 60
+      EventInvokeConfig:
+        MaximumRetryAttempts: 0
+      Architectures:
+        - arm64 # x86_64 arm64
+      Environment:
+        Variables:
+          PYTHONPATH: "/src"
+          PYTHONUNBUFFERED: 1
+          PYTHONUTF8: 1
+          MY_STAGE: !Ref MyStage
+          MY_VERSION: !Ref MyVersion
+          MY_ROOT: !Sub "/${MyStage}"
+          MY_NAME: "API"
+          AWS_PROFILE: "default"
+          AWS_CONFIG_FILE: "/src/.aws/config"
+      Events:
+        ApiEvent:
+          Type: Api
+          Properties:
+            Path: /{proxy+}
+            Method: ANY
+            RestApiId:
+              Ref: ALiveGw
+      Role: !Sub "arn:aws:iam::971291532448:role/scp-aislider-api-role-${MyStage}"

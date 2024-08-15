@@ -1,0 +1,14 @@
+FROM scp-aislider-app:1.0.0-arm64
+
+ARG MY_TEST
+ENV MY_TEST=${MY_TEST}
+
+COPY ./docker /docker
+COPY ./src /src
+COPY .env /src/.env
+
+COPY ./secret/aws_config /src/.aws/config
+#COPY ./secret/aws_credentials /src/.aws/credentials
+
+COPY ./secret/rsa/private_key.pem /src/rsa/private_key.pem
+COPY ./secret/rsa/public_key.pem /src/rsa/public_key.pem

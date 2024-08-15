@@ -1,0 +1,4 @@
+FROM scp-aislider-app:1.0.0
+
+ARG MY_TEST
+ENV MY_TEST=${MY_TEST}
