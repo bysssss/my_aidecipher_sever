@@ -1,4 +1,4 @@
-# scp-aislider-app
+# my_aidecipher_sever
 
 ## 프로젝트 구조
     root
@@ -52,34 +52,11 @@
     ├── .gitignore
     └── README.md
 ---
-## 1) Docker 이미지 빌드 
+## Docker 이미지 빌드 
 ```
 make build
 make build-local
 ```
-## 2) Docker-Compose 시작 및 확인
-```
-make up
-make ps
-```
-## 3) Swagger 문서 확인 및 테스트
-```
-http://localhost:5000/docs
-
-3-1) post slide 호출
-3-2) 이미지 업로드
-3-3) get slides 호출
-3-4) get slide 호출
-3-5) 이미지 다운로드
-3-6) post inference 호출
-3-7) get inferences 호출
-```
-## 3) 이미지 업로드 및 다운로드 (참고)
+## 테스트
 <img src="doc/upload.png" width="640" height="360">
 <img src="doc/download.png" width="640" height="360">
-
-## 4) Docker-Compose 종료
-```
-make down
-```
----
