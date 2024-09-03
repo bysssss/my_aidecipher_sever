@@ -1,0 +1,29 @@
+version: 2.1
+executors:
+  executor:
+    environment:
+      DOCKER_IMAGE: my_aidecipher_server
+      DOCKER_FILE_PATH: ./docker/Dockerfile
+      DOCKER_FILE_LOCAL_PATH: ./docker/Dockerfile.local
+
+jobs:
+  local-job:
+    executor: executor
+    machine: true
+    steps:
+    - checkout
+    - run:
+        name: Build Image
+        command: |
+          docker build . -t $DOCKER_IMAGE:1.0.0-local -f $DOCKER_FILE_LOCAL_PATH --build-arg MY_TEST=테스트
+
+workflows:
+  local-workflow:
+    jobs:
+    - local-job:
+        context: image-build
+        filters:
+          branches:
+            only: main
+          tags:
+            only: /^local.*/

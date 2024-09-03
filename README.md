@@ -56,6 +56,9 @@
 ```
 make build
 make build-local
+
+docker tag scp-aislider-app:1.0.0 leebs1986/my_aidecipher_server:1.0.0
+docker push leebs1986/my_aidecipher_server:1.0.0
 ```
 ## 테스트
 <img src="doc/upload.png" width="640" height="360">
