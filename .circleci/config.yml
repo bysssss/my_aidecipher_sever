@@ -76,7 +76,7 @@ workflows:
           tags:
             only: /^.*-base/
           branches:
-            only: main
+            ignore: /.*/
   dev-workflow:
     jobs:
     - dev-job:
