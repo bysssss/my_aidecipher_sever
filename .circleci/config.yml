@@ -11,6 +11,19 @@ jobs:
     executor: executor
     machine: true
     steps:
+    - run:
+        name: Set Hash
+        command: |
+          export COMMIT_HASH=`echo $CIRCLE_SHA1 | head -c 7`
+    - run:
+        name: Print
+        command: |
+          echo "COMMIT HASH : $COMMIT_HASH"
+          echo "Docker ID : $DOCKER_ID"
+    - run:
+        name: Login
+        command: |
+          echo $DOCKER_PW | docker login -u $DOCKER_ID --password-stdin
     - checkout
     - run:
         name: Build Image
