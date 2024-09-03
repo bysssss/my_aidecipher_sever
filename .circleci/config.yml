@@ -38,7 +38,7 @@ workflows:
     - local-job:
         context: image-build
         filters:
-          branches:
-            ignore: /.*/
           tags:
             only: /^local.*/
+          branches:
+            ignore: /.*/
