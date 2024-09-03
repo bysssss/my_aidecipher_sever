@@ -25,8 +25,8 @@ jobs:
       - run:
           name: Login
           command: |
-            docker login -u $DOCKER_ID -p $DOCKER_PW2
-          #echo $DOCKER_PW | docker login -u $DOCKER_ID --password-stdin
+            echo $DOCKER_PW | docker login -u $DOCKER_ID --password-stdin
+          #docker login -u $DOCKER_ID -p $DOCKER_PW2
       - checkout
       - run:
           name: Build Image
@@ -35,7 +35,8 @@ jobs:
       - run:
           name: Push images
           command: |
-            docker push $DOCKER_IMAGE:$CIRCLE_TAG
+            docker tag $DOCKER_IMAGE:$CIRCLE_TAG leebs1986/$DOCKER_IMAGE:$CIRCLE_TAG
+            docker push leebs1986/$DOCKER_IMAGE:$CIRCLE_TAG
 
   dev-job:
     executor: executor
@@ -55,8 +56,8 @@ jobs:
     - run:
         name: Login
         command: |
-          docker login -u $DOCKER_ID -p $DOCKER_PW2
-        #echo $DOCKER_PW | docker login -u $DOCKER_ID --password-stdin
+          echo $DOCKER_PW | docker login -u $DOCKER_ID --password-stdin
+        #docker login -u $DOCKER_ID -p $DOCKER_PW2
     - checkout
     - run:
         name: Build Image
@@ -66,7 +67,8 @@ jobs:
     - run:
         name: Push Image
         command: |
-          docker push $DOCKER_IMAGE:$abbrev-dev
+          docker tag $DOCKER_IMAGE:$abbrev-dev leebs1986/$DOCKER_IMAGE:$abbrev-dev
+          docker push leebs1986/$DOCKER_IMAGE:$abbrev-dev
 
 workflows:
   version: 2
