@@ -1,4 +1,5 @@
-FROM scp-aislider-app:1.0.0-arm64
+#FROM scp-aislider-app:1.0.0
+FROM leebs1986/my_aidecipher_server:1.0.0-base
 
 ARG MY_TEST
 ENV MY_TEST=${MY_TEST}

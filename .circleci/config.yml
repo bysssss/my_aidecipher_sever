@@ -4,10 +4,39 @@ executors:
     environment:
       DOCKER_IMAGE: my_aidecipher_server
       DOCKER_FILE_PATH: ./docker/Dockerfile
-      DOCKER_FILE_LOCAL_PATH: ./docker/Dockerfile.local
+      DOCKER_FILE_DEV_PATH: ./docker/Dockerfile.dev
 
 jobs:
-  local-job:
+  base-job:
+    executor: executor
+    machine: true
+    steps:
+      - run:
+          name: Setting
+          command: |
+            export abbrev=`echo $CIRCLE_SHA1 | head -c 7`
+            echo "export abbrev=$abbrev" >> $BASH_ENV
+      - run:
+          name: Debug
+          command: |
+            echo "abbrev : $abbrev"
+            echo "BASH ENV : $BASH_ENV"
+            echo "Docker ID : $DOCKER_ID"
+      - run:
+          name: Login
+          command: |
+            echo $DOCKER_PW | docker login -u $DOCKER_ID --password-stdin
+      - checkout
+      - run:
+          name: Build Image
+          command: |
+            docker build . -t $DOCKER_IMAGE:$CIRCLE_TAG -f $DOCKER_FILE_PATH --build-arg MY_TEST=테스트
+      - run:
+          name: Push images
+          command: |
+            docker push $DOCKER_IMAGE:$CIRCLE_TAG
+
+  dev-job:
     executor: executor
     machine: true
     steps:
@@ -30,16 +59,28 @@ jobs:
     - run:
         name: Build Image
         command: |
-          docker build . -t $DOCKER_IMAGE:1.0.0-local -f $DOCKER_FILE_LOCAL_PATH --build-arg MY_TEST=테스트
+          export DOCKER_IMAGE_TAG=$DOCKER_IMAGE:commit-$abbrev
+          docker build . -t $DOCKER_IMAGE:$abbrev-dev -f $DOCKER_FILE_DEV_PATH --build-arg MY_TEST=$DOCKER_IMAGE_TAG
+    - run:
+        name: Push Image
+        command: |
+          docker push $DOCKER_IMAGE:$abbrev-dev
 
 workflows:
   version: 2
-  local-workflow:
+  base-workflow:
     jobs:
-    - local-job:
+    - base-job:
         context: image-build
         filters:
           tags:
-            only: /^local.*/
+            only: /^.*-base/
           branches:
-            ignore: /.*/
+            only: main
+  dev-workflow:
+    jobs:
+    - dev-job:
+        context: image-build
+        filters:
+          branches:
+            only: main
