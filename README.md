@@ -54,6 +54,8 @@
 ---
 ## Docker 이미지 빌드 
 ```
+pip install -r src/requirements.txt
+
 make build
 make build-local
 
