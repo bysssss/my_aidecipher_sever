@@ -12,17 +12,15 @@ jobs:
     machine: true
     steps:
     - run:
-        name: Set Hash
+        name: Setting
         command: |
-          export COMMIT_HASH=`echo $CIRCLE_SHA1 | head -c 7`
-          echo "export COMMIT_HASH=$COMMIT_HASH"
           export abbrev=`echo $CIRCLE_SHA1 | head -c 7`
           echo "export abbrev=$abbrev" >> $BASH_ENV
     - run:
         name: Debug
         command: |
-          echo "COMMIT HASH : $COMMIT_HASH"
-          echo "COMMIT HASH : $BASH_ENV"
+          echo "abbrev : $abbrev"
+          echo "BASH ENV : $BASH_ENV"
           echo "Docker ID : $DOCKER_ID"
     - run:
         name: Login
@@ -41,6 +39,6 @@ workflows:
         context: image-build
         filters:
           branches:
-            only: main
+            ignore: /.*/
           tags:
             only: /^local.*/
