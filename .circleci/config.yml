@@ -25,7 +25,8 @@ jobs:
       - run:
           name: Login
           command: |
-            echo $DOCKER_PW | docker login -u $DOCKER_ID --password-stdin
+            docker login -u $DOCKER_ID -p $DOCKER_PW2
+          #echo $DOCKER_PW | docker login -u $DOCKER_ID --password-stdin
       - checkout
       - run:
           name: Build Image
@@ -54,7 +55,8 @@ jobs:
     - run:
         name: Login
         command: |
-          echo $DOCKER_PW | docker login -u $DOCKER_ID --password-stdin
+          docker login -u $DOCKER_ID -p $DOCKER_PW2
+        #echo $DOCKER_PW | docker login -u $DOCKER_ID --password-stdin
     - checkout
     - run:
         name: Build Image
