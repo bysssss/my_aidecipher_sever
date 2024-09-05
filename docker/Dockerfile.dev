@@ -1,4 +1,4 @@
-#FROM scp-aislider-app:1.0.0
+#FROM scp-aislider-app:1.0.0-arm64
 FROM leebs1986/my_aidecipher_server:1.0.0-base
 
 ARG MY_TEST
@@ -13,3 +13,9 @@ COPY .env /src/.env
 
 #COPY ./secret/rsa/private_key.pem /src/rsa/private_key.pem
 #COPY ./secret/rsa/public_key.pem /src/rsa/public_key.pem
+
+RUN pip install gunicorn
+RUN pip install uvicorn
+
+#EXPOSE 5000
+#CMD ["uvicorn", "app.main_api:my_fastapi", "--host", "0.0.0.0:5000"]

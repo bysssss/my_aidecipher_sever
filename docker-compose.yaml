@@ -1,6 +1,8 @@
 services:
   dockapi:
-    image: scp-aislider-app:1.0.0-local
+    #image: scp-aislider-app:1.0.0-local
+    #image: leebs1986/my_aidecipher_server:1.0.4-dev
+    image: scp-aislider-app:1.0.0-dev
     environment:
       - PYTHONPATH=/src
       - PYTHONUNBUFFERED=1
@@ -11,10 +13,10 @@ services:
       - MY_NAME=API
       - MY_LOCAL=1
     volumes:
-      - .env:/src/.env
-      - ./src/app:/src/app
-      - ./src/resource:/src/resource
-      - ./src/test:/src/test
+      #- .env:/src/.env
+      #- ./src/app:/src/app
+      #- ./src/resource:/src/resource
+      #- ./src/test:/src/test
       - ./secret/aws_config:/root/.aws/config
       - ./secret/aws_credentials:/root/.aws/credentials
       - ./secret/rsa/private_key.pem:/src/rsa/private_key.pem
@@ -23,10 +25,10 @@ services:
       #- ./docker/gunicorn.conf.py:/docker/gunicorn.conf.py
     ports:
       - 5000:5000
-    #entrypoint:
-      #- /docker/entrypoint.sh
-    #command: gunicorn --log-level=info
-    command: python3 -u -X utf8 app/main_api.py
+    entrypoint:
+      - /docker/entrypoint.sh
+    command: gunicorn --log-level=info
+    #command: python3 -u -X utf8 app/main_api.py
   postgres:
     image: postgres:15
     restart: always

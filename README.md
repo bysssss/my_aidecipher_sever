@@ -1,6 +1,6 @@
 # my_aidecipher_sever
 
-## 프로젝트 구조
+## 구조
     root
     ├── src
     │   ├── app
@@ -59,8 +59,8 @@ pip install -r src/requirements.txt
 make build
 make build-local
 
-docker tag scp-aislider-app:1.0.0 leebs1986/my_aidecipher_server:1.0.0
-docker push leebs1986/my_aidecipher_server:1.0.0
+docker tag scp-aislider-app:1.0.4-dev leebs1986/my_aidecipher_server:1.0.4-dev
+docker push leebs1986/my_aidecipher_server:1.0.4-dev
 ```
 ## 테스트
 <img src="doc/upload.png" width="640" height="360">
