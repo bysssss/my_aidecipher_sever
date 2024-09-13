@@ -59,8 +59,13 @@ pip install -r src/requirements.txt
 make build
 make build-local
 
-docker tag scp-aislider-app:1.0.4-dev leebs1986/my_aidecipher_server:1.0.4-dev
-docker push leebs1986/my_aidecipher_server:1.0.4-dev
+[CircleCI 연동]
+l..bs0000@n.com 계정 -> LBS 조직 -> 프로젝트
+
+[DockerHub 연동]
+make build-dev
+docker tag scp-aislider-app:1.0.0-dev leebs1986/my_aidecipher_server:1.0.0-dev
+docker push leebs1986/my_aidecipher_server:1.0.0-dev
 ```
 ## 테스트
 <img src="doc/upload.png" width="640" height="360">

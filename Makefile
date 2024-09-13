@@ -12,9 +12,6 @@ build-arm64:
 build-dev:
 	@docker buildx build . -t scp-aislider-app:1.0.0-dev -f ./docker/Dockerfile.dev --platform=linux/arm64 --build-arg MY_TEST=테스트
 
-build-dev4:
-	@docker build . -t scp-aislider-app:1.0.4-dev -f ./docker/Dockerfile.dev --build-arg MY_TEST=테스트4
-
 ps:
 	@docker-compose ps
 
